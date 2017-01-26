@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>My Garage</h1>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Welcome to My Garage application</h2>
+        <p>
+            My Garage application allows you to maintain records of
+            maintenance and repair work done on your vehicles.  This is a 3-tier
+            Microsoft ASP.NET Core 1.1 MVC web application that uses a SQL Server backend for data persistence. 
+            All of the run-time components (.NET Core and SQL Server) are deployed on Linux.  
+            Yes, you got that right ! .NET and SQL Server run-times are running on Red Hat Enterprise Linux!
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Record vehicle maintenance</h2>
+        <p>You can record routine maintenance work done on your vehicles here.</p>
+        <p><a class="btn btn-default" asp-controller="Repairs" asp-action="Index">Repairs</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Record your road trips and adventures</h2>
+        <p>You can record road trips and your adventures here.</p>
+        <p><a class="btn btn-default" href="">Trips</a></p>
+    </div>
+</div>

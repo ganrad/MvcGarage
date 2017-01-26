@@ -1,0 +1,71 @@
+@model MvcGarage.Models.Repair
+
+@{
+    ViewData["Title"] = "Repairs";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Repair record</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <label asp-for="Vehicle" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Vehicle" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="Vehicle" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="RepairDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="RepairDate" class="form-control" />
+                <span asp-validation-for="RepairDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="RepairType" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="RepairType" class="form-control" />
+                <span asp-validation-for="RepairType" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Miles" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Miles" class="form-control" />
+                <span asp-validation-for="Miles" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Workshop" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Workshop" class="form-control" />
+                <span asp-validation-for="Workshop" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Workdone" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Workdone" class="form-control" />
+                <span asp-validation-for="Workdone" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
