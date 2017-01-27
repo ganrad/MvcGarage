@@ -1,39 +1,41 @@
-# Welcome to ASP.NET Core
+# An ASP.NET Core 1.1 MVC Web Application running on OpenShift Container Platform v3.3 (or above).
 
-We've made some big updates in this release, so it’s **important** that you spend a few minutes to learn what’s new.
+**Important Note:** This project assumes the readers have basic working knowledge of *Red Hat OpenShift Container Platform v3.3* (or upstream project -> OpenShift Origin) & are familiar with key underlying technologies such as Docker & Kubernetes.  Readers are also presumed to have hands-on experience developing web applications using Microsoft .NET and associated technologies.  The *My Garage* application is written in C#.  For that matter, readers familiar with any object oriented programming language should be able to follow along the instructions easily and deploy the ASP.NET web application to OpenShift CP.
+For quick reference, readers can refer to the following on-line resources as needed.
 
-You've created a new ASP.NET Core project. [Learn what's new](https://go.microsoft.com/fwlink/?LinkId=518016)
+1.  [OpenShift Container Platform Documentation](https://docs.openshift.com/)
+2.  [Kubernetes Documentation](http://kubernetes.io/docs/user-guide/pods/)
+3.  [OpenShift CP .NET Core S2I builder Image] (https://docs.openshift.com/container-platform/3.3/using_images/s2i_images/dot_net_core.html)
+4.  [ASP.NET Core] (https://docs.microsoft.com/en-us/aspnet/core/)
+5.  [.NET Entity Framework Core] (https://docs.microsoft.com/en-us/ef/core/)
+6.  [SQL Server on Linux] (https://docs.microsoft.com/en-us/sql/linux/)
+7.  [Visual Studio Code Overview] (https://code.visualstudio.com/docs/introvideos/overview)
+8.  [Get started with VS Code and .NET Core on MacOS] (https://channel9.msdn.com/Blogs/dotnet/Get-started-with-VS-Code-using-CSharp-and-NET-Core-on-MacOS)
 
-## This application consists of:
+## Description
+The *My Garage* application is a simple MVC (Model-View-Controller) Web Application that allows users to keep track of maintenance or repair work done on their vehicles.
+The application uses the following technologies -
 
-*   Sample pages using ASP.NET Core MVC
-*   [Bower](https://go.microsoft.com/fwlink/?LinkId=518004) for managing client-side libraries
-*   Theming using [Bootstrap](https://go.microsoft.com/fwlink/?LinkID=398939)
+1. .NET Core 1.1
+2. ASP.NET Core 1.1
+3. .NET EF Core 1.1
+4. SQL Server vNext CTP 1.2
 
-## How to
+## Steps for deploying the *My Garage* application on OpenShift CP v3.3 (or later)
+### A] Create a new project in OpenShift CP using the web console.
 
-*   [Add a Controller and View](https://go.microsoft.com/fwlink/?LinkID=398600)
-*   [Add an appsetting in config and access it in app.](https://go.microsoft.com/fwlink/?LinkID=699562)
-*   [Manage User Secrets using Secret Manager.](https://go.microsoft.com/fwlink/?LinkId=699315)
-*   [Use logging to log a message.](https://go.microsoft.com/fwlink/?LinkId=699316)
-*   [Add packages using NuGet.](https://go.microsoft.com/fwlink/?LinkId=699317)
-*   [Add client packages using Bower.](https://go.microsoft.com/fwlink/?LinkId=699318)
-*   [Target development, staging or production environment.](https://go.microsoft.com/fwlink/?LinkId=699319)
+1. Login into the OpenShift CP web console/UI and create a new project.  Use 'test-asp-net-sql' for project name and 'MyGarage' for display name.  Feel free to provide any meaningful description.
 
-## Overview
+Next, we will deploy the SQL Server container.
 
-*   [Conceptual overview of what is ASP.NET Core](https://go.microsoft.com/fwlink/?LinkId=518008)
-*   [Fundamentals of ASP.NET Core such as Startup and middleware.](https://go.microsoft.com/fwlink/?LinkId=699320)
-*   [Working with Data](https://go.microsoft.com/fwlink/?LinkId=398602)
-*   [Security](https://go.microsoft.com/fwlink/?LinkId=398603)
-*   [Client side development](https://go.microsoft.com/fwlink/?LinkID=699321)
-*   [Develop on different platforms](https://go.microsoft.com/fwlink/?LinkID=699322)
-*   [Read more on the documentation site](https://go.microsoft.com/fwlink/?LinkID=699323)
+### B] Deploy Microsoft SQL Server database container
 
-## Run & Deploy
+1. The SQL Server container runs as *root* user and so we will need to update the *anyuid* SCC.  We will need to add the **default** service account to the list of users. Use the OpenShift CLI command (shown below) to add the service account **system:serviceaccount:test-asp-net-sql:default** to the list of users.  Then save the SCC configuration.
 
-*   [Run your app](https://go.microsoft.com/fwlink/?LinkID=517851)
-*   [Run tools such as EF migrations and more](https://go.microsoft.com/fwlink/?LinkID=517853)
-*   [Publish to Microsoft Azure Web Apps](https://go.microsoft.com/fwlink/?LinkID=398609)
+```
+$ oc edit scc/anyuid
+```
 
-We would love to hear your [feedback](https://go.microsoft.com/fwlink/?LinkId=518015)
+2. In the OCP web console/UI, click on 'Add to project'.  Then click on 'Deploy Image' tab.  Within this tab, click on 'Image Name' field, enter text **microsoft/mssql-server-linux** and then hit search.  Leave the 'Name' field as is.  Add the two environment variables as shown in the screen shot below.
+
+![alt tag](https://raw.githubusercontent.com/ganrad/MvcGarage/master/images/SQLServer-01.png) 
