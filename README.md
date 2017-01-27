@@ -13,7 +13,7 @@ For quick reference, readers can refer to the following on-line resources as nee
 8.  [Get started with VS Code and .NET Core on MacOS] (https://channel9.msdn.com/Blogs/dotnet/Get-started-with-VS-Code-using-CSharp-and-NET-Core-on-MacOS)
 
 ## Description
-The *My Garage* application is a simple MVC (Model-View-Controller) Web Application that allows users to keep track of maintenance or repair work done on their vehicles.
+The *My Garage* application is a simple MVC (Model-View-Controller) Web Application that allows users to keep track of routine  maintenance and other repair work done on their vehicles.
 The application uses the following technologies -
 
 1. .NET Core 1.1
@@ -36,7 +36,7 @@ Next, we will deploy the SQL Server container.
  ```
  $ oc edit scc/anyuid
  ```
- * Bear in mind, you will need cluster administrator privileges to be able to modify an SCC.
+  * Bear in mind, you will need cluster administrator privileges to be able to modify an SCC.
  
 2. In the OCP web console/UI, click on 'Add to project'.  Then click on 'Deploy Image' tab.  Within this tab, click on 'Image Name' field, enter text **microsoft/mssql-server-linux** and then hit search.  Leave the 'Name' field as is.  Add the two environment variables as shown in the screen shot below.
 
@@ -46,4 +46,65 @@ Next, we will deploy the SQL Server container.
 
   ![alt tag](https://raw.githubusercontent.com/ganrad/MvcGarage/master/images/SQLServer-02.png)  
 
-4. Once the SQL Server container is up and running, we will create two database entities - a) A database user/login so that the *My Garage* application can connect to the database and store/retrieve pertinent information and b) A **repairsdb** database which will store all information entered by users of the application.  In order to create these entities, we will first install the SQL Server CLI utility/tool **sqlcmd**.  You can install this utility on your local machine or on one of the OpenShift cluster nodes.  Follow the instructions [here](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools) to install the **sqlcmd** utility/tool.
+4. Once the SQL Server container is up and running, we will create two database entities - 
+  * A **repairsdb** database which will store all information entered by users of the application.  
+  * A database user/login so that the *My Garage* application can connect to the database and store/retrieve pertinent information.
+
+  In order to create these entities, we will first install the SQL Server CLI utility/tool **sqlcmd**.  You can install this utility on your local machine or on one of the OpenShift cluster nodes.  Follow the instructions [here](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools) to install the **sqlcmd** utility/tool.
+
+5. After installing the *sqlcmd* SQL Server CLI utility, login to the SQL Server instance running within the container.
+ * Determine the service IP address of the SQL Server container
+ ```
+ $ oc get svc
+ ```
+ * Use the SQL Server service IP to connect to the instance via the *sqlcmd* CLI tool.  Replace the value of the placeholder (including *<>*) with the service IP address in the commmand below.  Also, make sure you are using the same *SA_PASSWORD* value which you provided in step [2] above.
+ ```
+ $ sqlcmd -S <Service IP> -U SA -P 'openshift33!'
+ ```
+ 
+6. Issue the following SQL Server CLI commands to create the database (*repairsdb*) and the application database user (*webuser*).
+   * Create a database **repairsdb** 
+   ```
+   1> CREATE database repairsdb;
+   2> GO
+   ```
+   * Add a new SQL Server instance user/login
+   ```
+   1> exec sp_addlogin @loginame = 'webuser', @passwd = 'P@ssw0rd’;
+   2> GO
+   ```
+   * Switch to the *repairsdb* database
+   ```
+   1> USE database repairsdb;
+   2> GO
+   ```
+   * Grant database access to the user created above (**webuser**)
+   ```
+   1> exec sp_grantdbaccess 'webuser';
+   2> GO
+   ```
+   * Grant permissions to user **webuser** so that he/she can perform all CRUD operations on all resources in database **repairsdb**
+   ```
+   1> grant CONTROL to webuser;
+   2> GO
+   ```
+   * Exit the **sqlcmd** utility
+   ```
+   1> QUIT
+   ```
+7. You have now successfully completed the setup of the SQL Server database instance running within the docker container.  Here are a few other useful *sqlcmd* CLI commands which you might find handy.
+  * List all database names and ID's
+  ```
+  1> SELECT SUBSTRING(name,1, 64), database_id FROM sys.databases ORDER BY name;
+  2> GO
+  ```
+  * List all schemas
+  ```
+  1> select name from sys.schemas;
+  2> GO
+  ```
+  * List all tables in the current database
+  ```
+  1> select table_name from information_schema.tables;
+  2> GO
+  ```
