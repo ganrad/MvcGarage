@@ -113,7 +113,7 @@ Next, we will deploy the SQL Server container.
   2> GO
   ```
 
-### C] Deploy the My Garage application within OpenShift CP using the web console/UI.
+### C] Deploy the My Garage application within OpenShift CP using the Web Console/UI.
 1.  Fork this Github repository so that it gets added to your account.
 
 2.  Login into the OpenShift CP Web Console (if you haven't already).  Click on the *'test-asp-net-sql'* project.  Then click *Add to project* at the top.  Next, under tab *Browse Catalog* search for the **'dotnetcore-11-rhel7:latest'** S2I (Source to image) builder image.  Click to select this image.
@@ -152,21 +152,19 @@ Next, we will deploy the SQL Server container.
  $ oc logs -f <pod-name>
  ```
  
-7.  From the OpenShift Web Console/UI, click on the **http://mygarage...** link to access the *My Garage* application.  The home page of the *My Garage* application should render on a new browser tab.  Switch to the terminal window (from previous step) to view the application log output.  You should see a message at the top that reads **'Initialized Repair DB'**.  View screenshot below.
+7.  From the OpenShift Web Console/UI, click on the **http://mygarage...** link to access the *My Garage* application.  The home page of the *My Garage* application should render on a new browser tab.  Switch to the terminal window (from previous step) to view the application log output.  You should see a message at the top that reads **'Initialized Repair DB'**.  View screenshot below.  
 
- ![alt tag](images/Create-app-04.png)
- The first time the application is accessed, it initializes the **repairsdb** with a set of maintenance records.
+  ![alt tag](images/Create-app-04.png) 
+   The first time the application is accessed, the **repairsdb** is seeded with a set of maintenance records.  So you might experience a minor delay before the application home page renders for the first time.
  
 8.  A screenshot of the *My Garage* application home web page is shown below.
 
   ![alt tag](images/Create-app-05.png)
- 
   Click on the *Repairs* tab at the top or click on the *Repairs* button under *Record vehicle maintenance* to view the maintenance records which were seeded when the application was initialized.  View screenshot below.
   
   ![alt tag](images/Create-app-06.png)
- 
   Feel free to play around with the application.  You can perform all CRUD operations on *Repair* records.  Enjoy!
  
-9.  Congratulations!!  You have successfully deployed a ASP.NET Core MVC 1.1 Enterprise Web Application on OpenShift Container Platform!!  The beauty of this solution is that both .NET and SQL Server runtimes are running on Red Hat Enterprise Linux (RHEL).  So go ahead and try out deploying a few .NET apps on RHEL and/or OpenShift CP.  
+9.  Congratulations!!  You have successfully deployed a ASP.NET Core MVC 1.1 Enterprise Web Application on OpenShift Container Platform!!  The beauty of this solution is that both .NET and SQL Server runtimes are running on Red Hat Enterprise Linux (RHEL).  So go ahead and try deploying a few .NET apps on RHEL and/or OpenShift CP.  Good luck exploring .NET on OpenShift CP.
  
   
