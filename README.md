@@ -1,6 +1,6 @@
-# An ASP.NET Core 1.1 MVC Web Application running on OpenShift Container Platform v3.3 (or above).
+# An ASP.NET Core 1.1 MVC Web Application running on OpenShift Container Platform v3.4.
 
-**Important Note:** This project assumes the readers have basic working knowledge of *Red Hat OpenShift Container Platform v3.3* (or upstream project -> OpenShift Origin) & are familiar with key underlying technologies such as Docker & Kubernetes.  Readers are also presumed to have hands-on experience developing web applications using Microsoft .NET and associated technologies.  The *My Garage* application is written in C#.  For that matter, readers familiar with any object oriented programming language should be able to follow along the instructions easily and deploy the ASP.NET web application to OpenShift CP.
+**Important Note:** This project assumes the readers have basic working knowledge of *Red Hat OpenShift Container Platform* (or upstream project -> OpenShift Origin) & are familiar with key underlying technologies such as Docker & Kubernetes.  Readers are also presumed to have hands-on experience developing web applications using Microsoft .NET and associated technologies.  The *My Garage* application is written in C#.  For that matter, readers familiar with any object oriented programming language should be able to follow along the instructions easily and deploy the ASP.NET web application to OpenShift CP.
 For quick reference, readers can refer to the following on-line resources as needed.
 
 1.  [OpenShift Container Platform Documentation](https://docs.openshift.com/)
