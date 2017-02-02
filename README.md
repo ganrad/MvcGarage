@@ -10,7 +10,8 @@ For quick reference, readers can refer to the following on-line resources as nee
 5.  [.NET Entity Framework Core] (https://docs.microsoft.com/en-us/ef/core/)
 6.  [SQL Server on Linux] (https://docs.microsoft.com/en-us/sql/linux/)
 7.  [Visual Studio Code Overview] (https://code.visualstudio.com/docs/introvideos/overview)
-8.  [Get started with VS Code and .NET Core on MacOS] (https://channel9.msdn.com/Blogs/dotnet/Get-started-with-VS-Code-using-CSharp-and-NET-Core-on-MacOS)
+8.  [Get started with C# on VS Code] (https://code.visualstudio.com/Docs/languages/csharp)
+8.  [Get started with VS Code and .NET Core] (https://channel9.msdn.com/Blogs/dotnet/Get-Started-Visual-Studio-NET-Core)
 
 ## Description
 The *My Garage* application is a simple MVC (Model-View-Controller) Web Application that allows users to keep track of routine  maintenance and other repair work done on their vehicles.
